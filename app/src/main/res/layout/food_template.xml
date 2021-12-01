@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:backgroundTint="@color/categoryBackground"
+    android:layout_margin="5dp"
+    app:cardElevation="16dp"
+    app:cardCornerRadius="8dp">
+
+    <LinearLayout
+        android:id="@+id/foodLinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="4dp">
+        <TextView
+            android:id="@+id/text_view_food_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/image_view_food"
+            android:fontFamily="@font/roboto_bold"
+            android:gravity="center"
+            android:text="Food name"
+            android:layout_marginBottom="12dp"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:id="@+id/image_view_food"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:scaleType="centerCrop"
+            tools:src="@drawable/pizza" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="KSH"
+                android:fontFamily="@font/roboto_bold"
+                android:textColor="@color/orange"
+                android:textSize="16sp"/>
+
+            <TextView
+                android:id="@+id/text_view_food_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="150."
+                android:fontFamily="@font/roboto_bold"
+                android:layout_marginStart="8dp"
+                android:textColor="@color/black"
+                android:textSize="16sp"/>
+
+        </LinearLayout>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/addButton"
+            app:backgroundTint="@null"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:textColor="@color/white"
+            android:layout_marginBottom="12dp"
+            android:fontFamily="@font/roboto"
+            android:background="@drawable/button_style"
+            android:layout_gravity="center"
+            android:text="+ Add"/>
+
+
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

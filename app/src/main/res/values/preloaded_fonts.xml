@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="preloaded_fonts" translatable="false">
+        <item>@font/bangers</item>
+        <item>@font/berkshire_swash</item>
+        <item>@font/frijole</item>
+        <item>@font/henny_penny</item>
+        <item>@font/jockey_one</item>
+        <item>@font/roboto</item>
+        <item>@font/roboto_bold</item>
+    </array>
+</resources>
