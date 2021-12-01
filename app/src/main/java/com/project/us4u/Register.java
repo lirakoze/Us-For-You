@@ -19,6 +19,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -33,6 +35,10 @@ public class Register extends AppCompatActivity {
     ProgressDialog progressDialog;
     private FirebaseFirestore firestore;
 
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference databaseReference;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +49,9 @@ public class Register extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         firestore=FirebaseFirestore.getInstance();
         progressDialog = new ProgressDialog(this);
+
+        firebaseDatabase=FirebaseDatabase.getInstance();
+        databaseReference=firebaseDatabase.getReference("USERS");
 
         signInTXT.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -158,26 +167,25 @@ public class Register extends AppCompatActivity {
     }
 
     //This method Saves the User information in the realtime database
-    private void saveUserInfo(String userId, User user){
+    private void saveUserInfo(String userId, User user) {
         //Setting up the Progress dialog
         progressDialog.setMessage("Please wait...");
         progressDialog.show();
         //end
-        System.out.println("THE USER'S ID: "+userId);
+        System.out.println("THE USER'S ID: " + userId);
 
-        firestore.collection("US4U").document("USERS").collection(userId).add(user)
-                .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+        databaseReference.child(userId).setValue(user)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
-                    public void onComplete(@NonNull Task<DocumentReference> task) {
+                    public void onComplete(@NonNull Task<Void> task) {
                         progressDialog.dismiss();
                         clearUserInputs();
-                        if (task.isSuccessful()){
+                        if (task.isSuccessful()) {
                             //end
                             Toast.makeText(Register.this, "Registration is successfull", Toast.LENGTH_LONG).show();
                             startActivity(new Intent(Register.this, Login.class));
                             finish();
-                        }
-                        else{
+                        } else {
                             Toast.makeText(Register.this, "Failed to Register", Toast.LENGTH_LONG).show();
                         }
                     }

@@ -22,6 +22,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomappbar.BottomAppBar;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FieldPath;
@@ -30,6 +32,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
 
+import Helpers.DatabaseHelper;
 import Models.User;
 import Services.Utils;
 
@@ -47,6 +50,10 @@ public class UserProfile extends AppCompatActivity {
     //Preference field
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference databaseReference;
+
+    DatabaseHelper databaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +64,10 @@ public class UserProfile extends AppCompatActivity {
         //Initialising preference
         sharedPreferences=getSharedPreferences("USER_DATA",MODE_PRIVATE);
         editor=sharedPreferences.edit();
+        firebaseDatabase=FirebaseDatabase.getInstance();
+        databaseReference=firebaseDatabase.getReference("USERS");
         progressDialog=new ProgressDialog(this);
+        databaseHelper=new DatabaseHelper(this);
 
         String fname=sharedPreferences.getString("FNAME","");
         String lname=sharedPreferences.getString("LNAME","");
@@ -94,6 +104,7 @@ public class UserProfile extends AppCompatActivity {
             public void onClick(View v) {
                 editor.clear();
                 editor.commit();
+                databaseHelper.clearCart();
                 Intent intent= new Intent(UserProfile.this, Login.class);
                 startActivity(intent);
                 finish();
@@ -133,17 +144,9 @@ public class UserProfile extends AppCompatActivity {
 
                 progressDialog.setMessage("Updating Account Info...");
                 progressDialog.show();
-                CollectionReference colRef=firestore.collection("US4U").document("USERS")
-                        .collection(Uid);
 
-
-
-               String id= colRef.getId();
-               System.out.println("ID = "+id);
                 User user=new User(fname,lname,phone,email,regDate);
-
-                Task<Void> docRef=firestore.collection("US4U").document("USERS")
-                        .collection(Uid).document(id).set(user)
+                databaseReference.child(Uid).setValue(user)
                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {

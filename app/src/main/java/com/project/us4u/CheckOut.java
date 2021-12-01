@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
@@ -25,7 +26,11 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
@@ -51,16 +56,19 @@ public class CheckOut extends AppCompatActivity implements AdapterView.OnItemCli
     ImageButton backBtn;
     private DatabaseHelper _dbHelper;
     private ArrayList<CartItem> _cartItems;
-    Integer amount=0;
-    Integer itemsQuantity=0;
-    Integer totalAmount=0;
-    Integer deliveryPrice=0;
+    Integer amount=0, itemsQuantity=0, totalAmount=0, deliveryPrice=0;
     Double taxAmount=0.0;
     Order order;
     ArrayList<String> locations;
     Spinner selectedLocationSpn;
     private DarajaApiClient mApiClient;
     private ProgressDialog mProgressDialog;
+    String PhoneNo,Username,Location,Point, Uid;
+    //Preference field
+    SharedPreferences sharedPreferences;
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference databaseReference;
+
 
 
     @Override
@@ -69,14 +77,21 @@ public class CheckOut extends AppCompatActivity implements AdapterView.OnItemCli
         setContentView(R.layout.activity_check_out);
         initializeViews();
         locations= new ArrayList<>();
+        firebaseDatabase=FirebaseDatabase.getInstance();
+        databaseReference=firebaseDatabase.getReference("ORDERS");
         mProgressDialog = new ProgressDialog(this);
         mApiClient = new DarajaApiClient();
         mApiClient.setIsDebug(true); //Set True to enable logging, false to disable.
+               //Initialising preference
+        sharedPreferences=getSharedPreferences("USER_DATA",MODE_PRIVATE);
+
+        PhoneNo=sharedPreferences.getString("PHONE","");
+        Username=sharedPreferences.getString("USERNAME","");
+        Uid=sharedPreferences.getString("ID","");
 
         _dbHelper= new DatabaseHelper(getApplicationContext());
         _cartItems= new ArrayList<>();
         getCartItems();
-
         getLocations();
         ArrayAdapter<String> locAdapter= new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, locations);
         selectedLocationSpn.setAdapter(locAdapter);
@@ -90,7 +105,6 @@ public class CheckOut extends AppCompatActivity implements AdapterView.OnItemCli
         setDeliveryCost(itemsQuantity);
         setTax(amount);
         setTotalAmount(amount,deliveryPrice,taxAmount);
-
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -105,12 +119,21 @@ public class CheckOut extends AppCompatActivity implements AdapterView.OnItemCli
             public void onClick(View v) {
                 int selectedId=paymentMethodRG.getCheckedRadioButtonId();
                 selectedPaymentOptionRBtn=(RadioButton)findViewById(selectedId);
+                Point=specificPointEdt.getText().toString();
+                Location = selectedLocationSpn.getSelectedItem().toString();
 
                 String option = selectedPaymentOptionRBtn.getText().toString();
 
-
-                order= new Order("0714081419",
-                        "Papi","Hostel","704",_cartItems,totalAmount.toString(),option);
+                if (Location.isEmpty()){
+                    specificPointEdt.setError("Required");
+                    return;
+                }
+                if (Point.isEmpty()){
+                    specificPointEdt.setError("Required");
+                    return;
+                }
+                order= new Order(PhoneNo,
+                        Username,Location,Point,_cartItems,totalAmount.toString(),option);
 
                 if (option.equalsIgnoreCase("Mpesa")){
 
@@ -122,7 +145,7 @@ public class CheckOut extends AppCompatActivity implements AdapterView.OnItemCli
                         return;
                     }
                     performSTKPush(number,totalAmount.toString());
-
+                    makeOrder(order);
                     System.out.println(order.toString());
                 }
                 else if(option.equalsIgnoreCase("Card")){
@@ -136,6 +159,8 @@ public class CheckOut extends AppCompatActivity implements AdapterView.OnItemCli
         });
 
     }
+
+
     private void initializeViews(){
 
         backBtn=findViewById(R.id.backBtn);
@@ -216,6 +241,9 @@ public class CheckOut extends AppCompatActivity implements AdapterView.OnItemCli
                     if (response.isSuccessful()) {
                         System.out.println("post submitted to API. %s "+response.body());
                         _dbHelper.clearCart();
+                        Intent intent = new Intent(CheckOut.this, PaymentConfirmation.class);
+                        startActivity(intent);
+                        finish();
                     } else {
                         System.out.println("Response %s "+response.errorBody().string());
                     }
@@ -279,6 +307,20 @@ public class CheckOut extends AppCompatActivity implements AdapterView.OnItemCli
                     res.getString(3), res.getString(4), res.getString(5)));
 
         }
+    }
+    private void makeOrder(Order order){
+        databaseReference.child(Uid).child(order.getOrderId()).setValue(order)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()){
+                        }
+                        else {
+                            Toast.makeText(CheckOut.this,"Failed To make Order",Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
     }
 
     @Override

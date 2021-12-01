@@ -11,6 +11,7 @@
         <entry key="..\:/Users/iraqo/AndroidStudioProjects/US4U/app/src/main/res/drawable/card_background.xml" value="0.240625" />
         <entry key="..\:/Users/iraqo/AndroidStudioProjects/US4U/app/src/main/res/drawable/card_style.xml" value="0.23692307692307693" />
         <entry key="..\:/Users/iraqo/AndroidStudioProjects/US4U/app/src/main/res/drawable/cart_icon.xml" value="0.240625" />
+        <entry key="..\:/Users/iraqo/AndroidStudioProjects/US4U/app/src/main/res/drawable/check_icon.xml" value="0.23282051282051283" />
         <entry key="..\:/Users/iraqo/AndroidStudioProjects/US4U/app/src/main/res/drawable/credit_card.xml" value="0.23692307692307693" />
         <entry key="..\:/Users/iraqo/AndroidStudioProjects/US4U/app/src/main/res/drawable/fav.xml" value="0.23692307692307693" />
         <entry key="..\:/Users/iraqo/AndroidStudioProjects/US4U/app/src/main/res/drawable/favorite.xml" value="0.23692307692307693" />
@@ -29,6 +30,7 @@
         <entry key="..\:/Users/iraqo/AndroidStudioProjects/US4U/app/src/main/res/layout/activity_food_detail.xml" value="0.22447916666666667" />
         <entry key="..\:/Users/iraqo/AndroidStudioProjects/US4U/app/src/main/res/layout/activity_login.xml" value="0.22447916666666667" />
         <entry key="..\:/Users/iraqo/AndroidStudioProjects/US4U/app/src/main/res/layout/activity_main.xml" value="0.22447916666666667" />
+        <entry key="..\:/Users/iraqo/AndroidStudioProjects/US4U/app/src/main/res/layout/activity_payment_confirmation.xml" value="0.2203125" />
         <entry key="..\:/Users/iraqo/AndroidStudioProjects/US4U/app/src/main/res/layout/activity_register.xml" value="0.22447916666666667" />
         <entry key="..\:/Users/iraqo/AndroidStudioProjects/US4U/app/src/main/res/layout/activity_reset_password.xml" value="0.22447916666666667" />
         <entry key="..\:/Users/iraqo/AndroidStudioProjects/US4U/app/src/main/res/layout/activity_restaurant_view.xml" value="0.22447916666666667" />

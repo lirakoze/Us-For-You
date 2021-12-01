@@ -57,13 +57,14 @@ public class MainActivity extends AppCompatActivity implements CategoryAdapter.O
         //Initialising preference
         sharedPreferences=getSharedPreferences("USER_DATA",MODE_PRIVATE);
 
-        String username=sharedPreferences.getString("FNAME","");
-        hinameTxt.setText("Hi, "+username);
+
 
         categoryLinearLyout = new LinearLayoutManager(MainActivity.this,LinearLayoutManager.HORIZONTAL,false);
         rvCategories.setLayoutManager(categoryLinearLyout);
         rvCategories.setAdapter(adapter);
 
+        //String username=sharedPreferences.getString("FNAME","");
+        hinameTxt.setText("Hi, "+sharedPreferences.getString("FNAME",""));
         //Initializing Firebase Firestore service
         firestore = FirebaseFirestore.getInstance();
         //START

@@ -21,6 +21,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -43,6 +46,9 @@ public class Login extends AppCompatActivity {
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
 
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference databaseReference;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +64,9 @@ public class Login extends AppCompatActivity {
         //Initialising preference
         sharedPreferences=getSharedPreferences("USER_DATA",MODE_PRIVATE);
         editor=sharedPreferences.edit();
+
+        firebaseDatabase=FirebaseDatabase.getInstance();
+        databaseReference=firebaseDatabase.getReference("USERS");
 
         progressDialog=new ProgressDialog(this);
 
@@ -170,29 +179,26 @@ public class Login extends AppCompatActivity {
     }
     private void getUsers(String Uid) {
 
-        Query query= firestore.collection("US4U").document("USERS")
-                .collection(Uid);
-        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        databaseReference.child(Uid).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
                 progressDialog.dismiss();
-                if (task.isSuccessful()) {
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        User user = document.toObject(User.class);
+                if (task.isSuccessful()){
+                    User user = task.getResult().getValue(User.class);
 
-                        editor.putString("PHONE",user.getPhoneNo());
-                        editor.putString("EMAIL",user.getEmail());
-                        editor.putString("ID",Uid);
-                        String username=""+user.getFname()+", "+user.getLname();
-                        editor.putString("USERNAME",username);
-                        editor.putString("FNAME",user.getFname());
-                        editor.putString("REGDATE",user.getRegistrationDate());
-                        editor.putString("LNAME",user.getLname());
-                        editor.commit();
-                        Log.d("USER",user.toString());
-                        System.out.println(user.toString());
-                    }
+                    editor.putString("PHONE",user.getPhoneNo());
+                    editor.putString("EMAIL",user.getEmail());
+                    editor.putString("ID",Uid);
+                    String username=""+user.getFname()+", "+user.getLname();
+                    editor.putString("USERNAME",username);
+                    editor.putString("FNAME",user.getFname());
+                    editor.putString("REGDATE",user.getRegistrationDate());
+                    editor.putString("LNAME",user.getLname());
+                    editor.commit();
+                    Log.d("USER",user.toString());
+                    System.out.println(user.toString());
                 }
+
                 else {
                     Log.d("IMEKATAAA","IMAGINE BANA HAIFANYI");
                     System.out.println("IMEKATA KUFANYA");

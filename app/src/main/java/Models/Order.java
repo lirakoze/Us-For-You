@@ -9,6 +9,10 @@ import java.util.Calendar;
 import java.util.UUID;
 
 public class Order implements Serializable {
+    public String getOrderId() {
+        return OrderId;
+    }
+
     String OrderId;
     String PhoneNo;
     String Username, TotalAmount;
