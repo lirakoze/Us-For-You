@@ -32,10 +32,12 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.button.MaterialButton
-                android:layout_width="32dp"
-                android:layout_height="32dp"
+                android:id="@+id/view_ordersBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="52dp"
                 android:layout_marginEnd="8dp"
                 android:background="@drawable/fav"
+                android:text="Orders"
                 app:backgroundTint="@null"
                 android:layout_marginTop="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -48,7 +50,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:text="Taste The amazing Paul's Cafe cuisines. Wait, not only african cuisines, at US4U we serve all dishes."
+                android:text=" Find great food from top rated restaurants near you.  Fast. Fresh. Convenient. Us for You"
                 android:textSize="16sp"
                 android:fontFamily="@font/roboto"
                 app:layout_constraintEnd_toEndOf="parent"

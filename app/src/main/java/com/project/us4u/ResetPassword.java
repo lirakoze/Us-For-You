@@ -29,7 +29,7 @@ public class ResetPassword extends AppCompatActivity {
         setContentView(R.layout.activity_reset_password);
         emailEDT=findViewById(R.id.edit_text_email_reset);
         resetPasswordBTN=findViewById(R.id.button_reset_password);
-        backBtn=findViewById(R.id.backBtn);
+        backBtn=findViewById(R.id.orderBackBtn);
         FirebaseApp.initializeApp(this);
         mAuth = FirebaseAuth.getInstance();
         progressDialog=new ProgressDialog(this);

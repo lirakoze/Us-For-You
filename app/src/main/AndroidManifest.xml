@@ -18,11 +18,15 @@
         android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"
         tools:replace="android:icon">
         <activity
+            android:name=".ViewOrders"
+            android:exported="false" />
+        <activity
+            android:name=".AddRestaurant"
+            android:exported="false" />
+        <activity
             android:name=".PaymentConfirmation"
             android:exported="false"
-            android:parentActivityName=".MainActivity">
-
-        </activity>
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".UserProfile"
             android:exported="false" />
@@ -38,8 +42,7 @@
         <activity
             android:name=".CheckOut"
             android:exported="false"
-            android:parentActivityName=".MainActivity"
-            />
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".AdminAddFoodItemView"
             android:exported="false"

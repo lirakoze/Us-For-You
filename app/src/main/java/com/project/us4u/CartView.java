@@ -42,7 +42,7 @@ public class CartView extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart_view);
-        backBtn=findViewById(R.id.backBtn);
+        backBtn=findViewById(R.id.orderBackBtn);
         checkOutBTN=findViewById(R.id.button_check_out);
         _cartItems=new ArrayList<>();
         _dbHelper=new DatabaseHelper(this);

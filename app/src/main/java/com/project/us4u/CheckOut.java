@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -28,7 +29,6 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -163,7 +163,7 @@ public class CheckOut extends AppCompatActivity implements AdapterView.OnItemCli
 
     private void initializeViews(){
 
-        backBtn=findViewById(R.id.backBtn);
+        backBtn=findViewById(R.id.orderBackBtn);
         amountTxt= findViewById(R.id.amount);
         taxTxt=findViewById(R.id.tax);
         deliveryTxt= findViewById(R.id.deliveryCost);
@@ -236,20 +236,29 @@ public class CheckOut extends AppCompatActivity implements AdapterView.OnItemCli
         mApiClient.mpesaService().sendPush(stkPush).enqueue(new Callback<STKPush>() {
             @Override
             public void onResponse(@NonNull Call<STKPush> call, @NonNull Response<STKPush> response) {
-                mProgressDialog.dismiss();
-                try {
-                    if (response.isSuccessful()) {
-                        System.out.println("post submitted to API. %s "+response.body());
-                        _dbHelper.clearCart();
+                Handler handler= new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mProgressDialog.dismiss();
+                        try {
+                            if (response.isSuccessful()) {
+                                System.out.println("post submitted to API. %s "+response.body());
+                                _dbHelper.clearCart();
+
+                            } else {
+                                System.out.println("Response %s "+response.errorBody().string());
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
                         Intent intent = new Intent(CheckOut.this, PaymentConfirmation.class);
                         startActivity(intent);
                         finish();
-                    } else {
-                        System.out.println("Response %s "+response.errorBody().string());
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                },5000);
+
             }
 
             @Override

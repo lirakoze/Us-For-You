@@ -17,14 +17,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.project.us4u.FoodDetail;
 import com.project.us4u.R;
 
 import Helpers.DatabaseHelper;
-import Models.CartItem;
 import Models.Food;
 
-public class FirestoreAdapter extends FirestoreRecyclerAdapter<Food,FirestoreAdapter.FoodViewHolder> {
+public class FirestoreAdapter extends FirestoreRecyclerAdapter<Food, FirestoreAdapter.FoodViewHolder> {
     private OnListItemClick onListItemClick;
     public DatabaseHelper dbHelper;
 

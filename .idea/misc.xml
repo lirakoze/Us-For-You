@@ -23,6 +23,7 @@
         <entry key="..\:/Users/iraqo/AndroidStudioProjects/US4U/app/src/main/res/drawable/shopping_cart_.xml" value="0.23692307692307693" />
         <entry key="..\:/Users/iraqo/AndroidStudioProjects/US4U/app/src/main/res/drawable/user.xml" value="0.23282051282051283" />
         <entry key="..\:/Users/iraqo/AndroidStudioProjects/US4U/app/src/main/res/drawable/user_icon.xml" value="0.240625" />
+        <entry key="..\:/Users/iraqo/AndroidStudioProjects/US4U/app/src/main/res/layout/activity_add_restaurant.xml" value="0.2203125" />
         <entry key="..\:/Users/iraqo/AndroidStudioProjects/US4U/app/src/main/res/layout/activity_admin_add_food_item_view.xml" value="0.22447916666666667" />
         <entry key="..\:/Users/iraqo/AndroidStudioProjects/US4U/app/src/main/res/layout/activity_cart_view.xml" value="0.22447916666666667" />
         <entry key="..\:/Users/iraqo/AndroidStudioProjects/US4U/app/src/main/res/layout/activity_category_foods_template.xml" value="0.22447916666666667" />
@@ -36,10 +37,12 @@
         <entry key="..\:/Users/iraqo/AndroidStudioProjects/US4U/app/src/main/res/layout/activity_restaurant_view.xml" value="0.22447916666666667" />
         <entry key="..\:/Users/iraqo/AndroidStudioProjects/US4U/app/src/main/res/layout/activity_splash_screen.xml" value="0.2203125" />
         <entry key="..\:/Users/iraqo/AndroidStudioProjects/US4U/app/src/main/res/layout/activity_user_profile.xml" value="0.2203125" />
+        <entry key="..\:/Users/iraqo/AndroidStudioProjects/US4U/app/src/main/res/layout/activity_view_orders.xml" value="0.2203125" />
         <entry key="..\:/Users/iraqo/AndroidStudioProjects/US4U/app/src/main/res/layout/cart_item_template.xml" value="0.22447916666666667" />
         <entry key="..\:/Users/iraqo/AndroidStudioProjects/US4U/app/src/main/res/layout/category_template.xml" value="0.22447916666666667" />
         <entry key="..\:/Users/iraqo/AndroidStudioProjects/US4U/app/src/main/res/layout/food_template.xml" value="0.22447916666666667" />
         <entry key="..\:/Users/iraqo/AndroidStudioProjects/US4U/app/src/main/res/layout/newdish_template.xml" value="0.2203125" />
+        <entry key="..\:/Users/iraqo/AndroidStudioProjects/US4U/app/src/main/res/layout/order_template.xml" value="0.2203125" />
         <entry key="..\:/Users/iraqo/AndroidStudioProjects/US4U/app/src/main/res/layout/restaurant_template.xml" value="0.2203125" />
       </map>
     </option>

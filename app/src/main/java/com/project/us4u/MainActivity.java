@@ -9,13 +9,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -24,15 +22,17 @@ import java.util.ArrayList;
 
 import Adapters.CategoryAdapter;
 import Adapters.FirestoreAdapter;
+import Adapters.OrdersAdapter;
 import Adapters.NewDishesAdapter;
 import Helpers.Constants;
 import Models.Category;
 import Models.Food;
 
-public class MainActivity extends AppCompatActivity implements CategoryAdapter.OnCategoryFoodItemClickListener,FirestoreAdapter.OnListItemClick, NewDishesAdapter.OnNewDishItemClick {
+public class MainActivity extends AppCompatActivity implements CategoryAdapter.OnCategoryFoodItemClickListener, FirestoreAdapter.OnListItemClick, NewDishesAdapter.OnNewDishItemClick {
     private FirebaseFirestore firestore;
     FirestoreAdapter mealsAdapter;
     TextView hinameTxt;
+    Button viewOrdersBtn;
     RecyclerView rvCategories, rvNewDishes;
     ArrayList<Category> categories;
     CategoryAdapter adapter;
@@ -100,7 +100,13 @@ public class MainActivity extends AppCompatActivity implements CategoryAdapter.O
         rvNewDishes.setLayoutManager(newDishesLinearLyout);
         rvNewDishes.setAdapter(mealsAdapter);
 
-
+viewOrdersBtn.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        Intent intent= new Intent(MainActivity.this, ViewOrders.class);
+        startActivity(intent);
+    }
+});
 
     restLnl.setOnClickListener(new View.OnClickListener() {
         @Override
@@ -186,6 +192,7 @@ public class MainActivity extends AppCompatActivity implements CategoryAdapter.O
         settingsLnl=findViewById(R.id.settings_layout);
         profileLnl=findViewById(R.id.profile_layout);
         hinameTxt=findViewById(R.id.textView_hi_name);
+        viewOrdersBtn=findViewById(R.id.view_ordersBtn);
     }
 
     @Override

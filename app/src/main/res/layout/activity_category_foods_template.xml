@@ -19,7 +19,7 @@
         android:paddingTop="8dp">
 
         <ImageButton
-            android:id="@+id/backBtn"
+            android:id="@+id/orderBackBtn"
             android:layout_width="36dp"
             android:layout_height="32dp"
             android:layout_marginStart="8dp"
@@ -39,7 +39,7 @@
             android:text="Category Name"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/backBtn"
+            app:layout_constraintStart_toEndOf="@+id/orderBackBtn"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="TextContrastCheck" />
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -73,12 +73,12 @@
                 android:minHeight="48dp"
                 android:padding="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/rv_restaurants_res_view"
+                app:layout_constraintStart_toEndOf="@+id/rv_orders"
                 app:layout_constraintTop_toTopOf="parent" />
 
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_restaurants_res_view"
+                android:id="@+id/rv_orders"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
